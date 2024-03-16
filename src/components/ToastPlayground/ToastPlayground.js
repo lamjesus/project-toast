@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Button from "../Button";
 
 import styles from "./ToastPlayground.module.css";
+import { Key } from "react-feather";
 
 const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
 
@@ -14,7 +15,6 @@ function ToastPlayground() {
   const handleChange = (event) => {
     setValue(event.target.value);
   };
-  console.log(inputValue);
   return (
     <div className={styles.wrapper}>
       <header>
@@ -47,7 +47,7 @@ function ToastPlayground() {
             {VARIANT_OPTIONS &&
               VARIANT_OPTIONS.map((variantSelected, idx) => {
                 return (
-                  <label htmlFor={`variant-${variantSelected}`}>
+                  <label key={idx} htmlFor={`variant-${variantSelected}`}>
                     <input
                       id={`variant-${variantSelected}`}
                       type="radio"
@@ -55,6 +55,7 @@ function ToastPlayground() {
                       value={variantSelected}
                       checked={inputValue === variantSelected}
                       onChange={(e) => setInputValue(e.target.value)}
+                      
                     />
                     {variantSelected}
                   </label>
