@@ -3,15 +3,15 @@ import React, { useState } from "react";
 import Button from "../Button";
 
 import styles from "./ToastPlayground.module.css";
-import { Key } from "react-feather";
+import Toast from "../Toast/Toast";
 
 const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
 
 function ToastPlayground() {
   //! TODO: CustomHook
   const [value, setValue] = useState("");
-  const [inputValue, setInputValue] = useState("");
-
+  const [inputValue, setInputValue] = useState("notice");
+  const [shown, setShown] = useState(false);
   const handleChange = (event) => {
     setValue(event.target.value);
   };
@@ -21,6 +21,7 @@ function ToastPlayground() {
         <img alt="Cute toast mascot" src="/toast.png" />
         <h1>Toast Playground</h1>
       </header>
+      {shown && <Toast type={inputValue}>{value}</Toast>}
 
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
@@ -55,7 +56,6 @@ function ToastPlayground() {
                       value={variantSelected}
                       checked={inputValue === variantSelected}
                       onChange={(e) => setInputValue(e.target.value)}
-                      
                     />
                     {variantSelected}
                   </label>
@@ -67,7 +67,9 @@ function ToastPlayground() {
         <div className={styles.row}>
           <div className={styles.label} />
           <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
-            <Button>Pop Toast!</Button>
+            <Button onClick={() => setShown(!shown)}>
+              Pop Toast!
+            </Button>
           </div>
         </div>
       </div>
