@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 
 import Button from "../Button";
 
+import ToastShelf from "../ToastShelf/ToastShelf";
 import styles from "./ToastPlayground.module.css";
 import Toast from "../Toast/Toast";
 
@@ -11,17 +12,34 @@ function ToastPlayground() {
   //! TODO: CustomHook
   const [value, setValue] = useState("");
   const [inputValue, setInputValue] = useState("notice");
-  const [shown, setShown] = useState(false);
+
+  const [toast, setToast] = useState([]);
+
+  //  const id = useId();
   const handleChange = (event) => {
     setValue(event.target.value);
   };
+  let newObject = {
+    text: value,
+    variant: inputValue,
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    let arr = [...newObject]
+    setInputValue("notice");
+    setValue("");
+    setToast({
+      
+    });
+  };
+  console.log(newObject);
   return (
     <div className={styles.wrapper}>
       <header>
         <img alt="Cute toast mascot" src="/toast.png" />
         <h1>Toast Playground</h1>
       </header>
-      {shown && <Toast type={inputValue}>{value}</Toast>}
+      {toast.length !== 0 && <ToastShelf data={toast} />}
 
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
@@ -66,11 +84,11 @@ function ToastPlayground() {
 
         <div className={styles.row}>
           <div className={styles.label} />
-          <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
-            <Button onClick={() => setShown(!shown)}>
-              Pop Toast!
-            </Button>
-          </div>
+          <form onSubmit={handleSubmit}>
+            <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
+              <Button>Pop Toast!</Button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
