@@ -28,6 +28,7 @@ const STYLESCOLOR = {
 function Toast({ children, type }) {
   const IconComponent = ICONS_BY_VARIANT[type];
   const toastClasses = STYLESCOLOR[type]
+console.log(STYLESCOLOR[type])
   return (
     <div className={`${styles.toast} ${toastClasses}`}>
       <div className={styles.iconContainer}>
